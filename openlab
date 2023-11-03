@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.2.1/jquery.min.js"></script>
+    <style type="text/css">
+        table {
+            text-align: center;
+            width: 618px;
+            height: 623px;
+            position: absolute;
+            left: 50%;
+            margin-left: -309px;
+        }
+
+        table th,table td {
+            padding: 20px 10px;
+        }
+    </style>
 </head>
 <body>
-    <p>text</p>
+    
 </body>
 </html>
