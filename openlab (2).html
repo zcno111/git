@@ -22,7 +22,7 @@
 </head>
 <body>
     
-    <table border="1px" cellspacing="0" cellpadding="0" bordercolor="#f0f3f8">
+    <table border="1px" cellspacing="0" cellpadding="0" bordercolor="#000000">
         <thead>
             <tr>
                 <th>姓名</th>
@@ -49,9 +49,22 @@
         },
         "crossDomain": true
         })
-        .done(function(response) {
-             console.log(response);
+    .done(function(response) {
+        console.log(response);
+        
+        let data = response.score;
+        let str = "";
+
+        data.score.forEach((item, index) => {
+        str += `
+            <tr> 
+                <td>${item.score} </td>
+            </tr>
+          `;
         })
-        .fail(function(jqXHR) {})
+        $("#box")[0].innerHTML = str;
+    })
+    .fail(function(jqXHR) {})
+    </script>
 </body>
 </html>
