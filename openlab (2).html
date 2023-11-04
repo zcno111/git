@@ -19,7 +19,7 @@
                 <th>A</th>
                 <th>B</th>
                 <th>C</th>
-                <th><div class="level0">D</div></th>
+                <th>D</th>
             </tr>
         </thead>
         <tbody id="box">
@@ -42,42 +42,53 @@
         
         let data = response;
         let str = "";
-        var sum=new Array();
+        var ssum=new Array();
 
         for(i=0;i<data.length;i++)
         {
-            sum[i] =Number(data[i].score[0].score)+Number(data[i].score[1].score)+Number(data[i].score[2].score)+Number(data[i].score[3].score);
+            ssum[i] =Number(data[i].score[0].score)+Number(data[i].score[1].score)+Number(data[i].score[2].score)+Number(data[i].score[3].score);
         }
 
         for(j=0;j<data.length;j++)
             for(k=j+1;k<data.length;k++)
         {
-            if(sum[j]<sum[k])
+            if(ssum[j]<ssum[k])
             {
                 var t,l;
-                t=sum[j];sum[j]=sum[k];sum[k]=t;
+                t=ssum[j];ssum[j]=ssum[k];ssum[k]=t;
                 l=data[j];data[j]=data[k];data[k]=l;
             }
         }
 
- //无奈之举，不知道为什么使用循环输出是空的。。。
+ //无事发生
 
-        
-       str  +=`  
-       <tr>
-            <td>1</td>
-            <td>${(data[0].name)}</td>
-            <td>${data[0].id}</td>
-            <td>${sum[0]}</td>
-            <div class="level0">
-            <td>${data[0].score[0].score}</td>
-            </div>
-            <td>${data[0].score[1].score}</td>
-            <td>${data[0].score[2].score}</td>
-            <td>${data[0].score[3].score}</td>
-        </tr>
-       `;
-
+ for (i = 0; i < data.length; i++) {
+    var name = data[i].name;
+    var id = data[i].id;
+    var score1 = data[i].score[0].score;
+    var score2 = data[i].score[1].score;
+    var score3 = data[i].score[2].score;
+    var score4 = data[i].score[3].score;
+    
+    var color1 = score1 === 10 ? 'green' : 'red';
+    var color2 = score2 === 10 ? 'green' : 'red';
+    var color3 = score3 === 10 ? 'green' : 'red';
+    var color4 = score4 === 10 ? 'green' : 'red';
+    
+    var row = "<tr>" +
+                "<td>1</td>" +
+                "<td>" + name + "</td>" +
+                "<td>" + id + "</td>" +
+                "<td>" + ssum[i] + "</td>" +
+               
+                "<td>" + "<div style='color:" + color1 + "'>" + score1 +  "</div>" + "</td>" +
+              
+                "<td>" + "<div style='color:" + color2 + "'>" + score2 +  "</div>" +  "</td>" +
+                "<td>" + "<div style='color:" + color3 + "'>" + score3 +  "</div>" +  "</td>" +
+                "<td>" + "<div style='color:" + color4 + "'>" + score4 +  "</div>" + "</td>" +
+              "</tr>";
+    str += row;
+}
         
         
         $("#box")[0].innerHTML = str;
