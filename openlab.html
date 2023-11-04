@@ -4,23 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.2.1/jquery.min.js"></script>
-    <style type="text/css">
-        table {
-            text-align: center;
-            width: 618px;
-            height: 623px;
-            position: absolute;
-            left: 50%;
-            margin-left: -309px;
-        }
-
-        table th,table td {
-            padding: 20px 10px;
-        }
-    </style>
+    <script src="C:\Users\19636\Documents\Tencent Files\2054245495\AppWebCache\1\pub.idqqimg.com\qqfind\js\jquery-2.0.0.min.js"></script>
+    <link rel="stylesheet" type="text/css"  href="./openlab (2).css">
 </head>
 <body>
-    <p>text</p>
+    
+    <table border="1px" cellspacing="0" cellpadding="0" bordercolor="#000000">
+        <thead>
+            <div>
+                <th>Rank</th>
+                <th>姓名</th>
+                <th>学号</th>
+                <th>分数</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th><div class="level0">D</div></th>
+            </tr>
+        </thead>
+        <tbody id="box">
+
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+      
+    $.ajax({
+        url: "https://puzzle.qieee.top/api/rank",
+        method: "GET",
+        dataType:"json",
+        headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+        },
+        crossDomain: true
+        })
+    .done(function(response) {
+        
+        let data = response;
+        let str = "";
+        var sum=new Array();
+
+        for(i=0;i<data.length;i++)
+        {
+            sum[i] =Number(data[i].score[0].score)+Number(data[i].score[1].score)+Number(data[i].score[2].score)+Number(data[i].score[3].score);
+        }
+
+        for(j=0;j<data.length;j++)
+            for(k=j+1;k<data.length;k++)
+        {
+            if(sum[j]<sum[k])
+            {
+                var t,l;
+                t=sum[j];sum[j]=sum[k];sum[k]=t;
+                l=data[j];data[j]=data[k];data[k]=l;
+            }
+        }
+
+      for(i=0;i<data.length;i++)
+      {  
+       str  +=`  
+       <tr>
+            <td>1</td>
+            <td>${(data[i].name)}</td>
+            <td>${data[i].id}</td>
+            <td>${sum[i]}</td>
+            <div class="level0">
+            <td>${data[i].score[0].score}</td>
+            </div>
+            <td>${data[i].score[1].score}</td>
+            <td>${data[i].score[2].score}</td>
+            <td>${data[i].score[3].score}</td>
+        </tr>
+       `;
+    }
+        
+        
+        $("#box")[0].innerHTML = str;
+    })
+    .fail(function(jqXHR) {})
+    </script>
 </body>
 </html>
