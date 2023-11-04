@@ -9,7 +9,7 @@
         table {
             text-align: center;
             width: 618px;
-            height: 623px;
+            height: 10000px;
             position: absolute;
             left: 50%;
             margin-left: -309px;
@@ -42,26 +42,47 @@
     <script type="text/javascript">
       
     $.ajax({
-        "url": "https://puzzle.qieee.top/api/rank",
-        "method": "GET",
-        "headers": {
+        url: "https://puzzle.qieee.top/api/rank",
+        method: "GET",
+        dataType:"json",
+        headers: {
         "Content-Type": "application/x-www-form-urlencoded"
         },
-        "crossDomain": true
+        crossDomain: true
         })
     .done(function(response) {
-        console.log(response);
         
-        let data = response.score;
+        let data = response;
         let str = "";
+        var sum=new Array();
 
-        data.score.forEach((item, index) => {
-        str += `
-            <tr> 
-                <td>${item.score} </td>
-            </tr>
-          `;
-        })
+        for(i=0;i<data.length;i++)
+        {
+            sum[i] =Number(data[i].score[0].score)+Number(data[i].score[1].score)+Number(data[i].score[2].score)+Number(data[i].score[3].score);
+        }
+
+        for(j=0;j<data.length;j++)
+            for(k=j+1;k<data.length;k++)
+        {
+            if(sum[j]<sum[k])
+            {
+                var t,l;
+                t=sum[j];sum[j]=sum[k];sum[k]=t;
+                l=data[i];data[i]=data[k];data[k]=l;
+            }
+        }
+        for(i=0;i<=1;i++)
+        {
+            str +=  `
+                <tr>
+                    <td>${data[i].name}</td>
+                    <td>${data[i].id}</td>
+                    <td>${sum[i]}</td>
+                </tr>
+            `;
+        }   
+        
+        
         $("#box")[0].innerHTML = str;
     })
     .fail(function(jqXHR) {})
