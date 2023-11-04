@@ -5,33 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="C:\Users\19636\Documents\Tencent Files\2054245495\AppWebCache\1\pub.idqqimg.com\qqfind\js\jquery-2.0.0.min.js"></script>
-    <style type="text/css">
-        table {
-            text-align: center;
-            width: 618px;
-            height: 10000px;
-            position: absolute;
-            left: 50%;
-            margin-left: -309px;
-        }
-
-        table th,table td {
-            padding: 20px 10px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css"  href="./openlab (2).css">
 </head>
 <body>
     
     <table border="1px" cellspacing="0" cellpadding="0" bordercolor="#000000">
         <thead>
-            <tr>
+            <div>
+                <th>Rank</th>
                 <th>姓名</th>
                 <th>学号</th>
                 <th>分数</th>
                 <th>A</th>
                 <th>B</th>
                 <th>C</th>
-                <th>D</th>
+                <th><div class="level0">D</div></th>
             </tr>
         </thead>
         <tbody id="box">
@@ -68,19 +56,28 @@
             {
                 var t,l;
                 t=sum[j];sum[j]=sum[k];sum[k]=t;
-                l=data[i];data[i]=data[k];data[k]=l;
+                l=data[j];data[j]=data[k];data[k]=l;
             }
         }
-        for(i=0;i<=1;i++)
-        {
-            str +=  `
-                <tr>
-                    <td>${data[i].name}</td>
-                    <td>${data[i].id}</td>
-                    <td>${sum[i]}</td>
-                </tr>
-            `;
-        }   
+
+ //无奈之举，不知道为什么使用循环输出是空的。。。
+
+        
+       str  +=`  
+       <tr>
+            <td>1</td>
+            <td>${(data[0].name)}</td>
+            <td>${data[0].id}</td>
+            <td>${sum[0]}</td>
+            <div class="level0">
+            <td>${data[0].score[0].score}</td>
+            </div>
+            <td>${data[0].score[1].score}</td>
+            <td>${data[0].score[2].score}</td>
+            <td>${data[0].score[3].score}</td>
+        </tr>
+       `;
+
         
         
         $("#box")[0].innerHTML = str;

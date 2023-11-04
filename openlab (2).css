@@ -1,0 +1,17 @@
+.level0
+{
+    background-color: #c53434;
+    color:#c53434;
+}
+table {
+    text-align: center;
+    width: 1000px;
+    height: 10000px;
+    position: absolute;
+    left: 40%;
+    margin-left: -309px;
+}
+
+table th,table td {
+    padding: 20px 10px;
+}
